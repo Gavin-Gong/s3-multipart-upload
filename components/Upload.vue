@@ -14,8 +14,8 @@
       </div>
       <NButton @click="handleUpload" class="mt-4">上传文件</NButton>
     </div>
-    <div class="font-mono ml-8 max-h-60vh">
-      <div v-for="log in logList" class="overflow-scroll">
+    <div class="font-mono ml-8 max-h-60vh overflow-scroll">
+      <div v-for="log in logList">
         {{ log.content }}
       </div>
     </div>
@@ -56,12 +56,12 @@ const handleUpload = async () => {
     method: 'post',
     body: { key: name }
   })
-  log(`创建上传任务`)
   const chunkSize = chunkMbSize.value * 1024 * 1024
   const uploadId = createRes.UploadId
   const chunkList = []
   // 对文件进行分片
   const chunkCount = Math.ceil(file.size / chunkSize)
+  log(`创建上传任务, 分片数量 ${chunkCount}`)
   for (let i = 0; i < chunkCount; i++) {
     const start = i * chunkSize
     const end = Math.min(file.size, start + chunkSize)
