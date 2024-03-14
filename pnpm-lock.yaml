@@ -17,6 +17,9 @@ dependencies:
   axios:
     specifier: ^1.6.7
     version: 1.6.7
+  dayjs:
+    specifier: ^1.11.10
+    version: 1.11.10
   lodash-es:
     specifier: ^4.17.21
     version: 4.17.21
@@ -4163,6 +4166,10 @@ packages:
     engines: {node: '>=0.11'}
     dependencies:
       '@babel/runtime': 7.24.0
+    dev: false
+
+  /dayjs@1.11.10:
+    resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
     dev: false
 
   /db0@0.1.4:

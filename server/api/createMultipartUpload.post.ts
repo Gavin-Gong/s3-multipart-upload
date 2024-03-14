@@ -13,6 +13,7 @@ export default defineEventHandler(async (event) => {
     Key: data.key,
   };
   const { UploadId } = await s3.send(new CreateMultipartUploadCommand(params))
+  console.log('createMultipartUpload', params)
   return {
     UploadId
   }
