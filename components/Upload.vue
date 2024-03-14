@@ -61,7 +61,7 @@ const handleUpload = async () => {
   const chunkList = []
   // 对文件进行分片
   const chunkCount = Math.ceil(file.size / chunkSize)
-  log(`创建上传任务, 分片数量 ${chunkCount}`)
+  log(`创建上传任务, 分片数量 ${chunkCount}`, 'keep')
   for (let i = 0; i < chunkCount; i++) {
     const start = i * chunkSize
     const end = Math.min(file.size, start + chunkSize)
