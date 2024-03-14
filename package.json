@@ -1,0 +1,27 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.533.0",
+    "@aws-sdk/s3-request-presigner": "^3.533.0",
+    "@types/lodash-es": "^4.17.12",
+    "axios": "^1.6.7",
+    "lodash-es": "^4.17.21",
+    "naive-ui": "^2.38.1",
+    "nuxt": "^3.10.3",
+    "unocss": "^0.58.5",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@unocss/nuxt": "^0.58.5"
+  }
+}
