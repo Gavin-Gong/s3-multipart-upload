@@ -4,7 +4,7 @@
       <input ref="fileRef" type="file">
       <div class="flex mt-4">
         <div class="mr-4">
-          分片大小(Mb)
+          分片大小(MB)
           <NInputNumber :min="5" :max="9999" v-model:value="chunkMbSize" />
         </div>
         <div>
@@ -14,9 +14,9 @@
       </div>
       <NButton @click="handleUpload" class="mt-4">上传文件</NButton>
     </div>
-    <div class="font-mono ml-8">
-      <div v-for="log in logList" class="max-h-60vh overflow-scroll">
-        {{ log }}
+    <div class="font-mono ml-8 max-h-60vh">
+      <div v-for="log in logList" class="overflow-scroll">
+        {{ log.content }}
       </div>
     </div>
   </div>
@@ -33,10 +33,13 @@ const fileRef = ref<HTMLInputElement | null>(null)
 
 const chunkMbSize = ref(5)
 const parallelCount = ref(1)
-const logList = ref<string[]>([])
-const log = (text: string) => {
+const logList = ref<{ content: string, type?: string }[]>([])
+const log = (text: string, type?: string) => {
   const content = `[${dayjs().format('YYYY-MM-DD HH:mm:ss')}]: ${text}`
-  logList.value.push(content)
+  logList.value.push({
+    content,
+    type
+  })
 }
 
 const handleUpload = async () => {
@@ -115,11 +118,12 @@ const handleUpload = async () => {
       }
     }
   })
-  log(`上传任务已经完成，返回文件地址：${completeUploadRes.Location}`)
+  logList.value = logList.value.filter(log => log.type === 'keep')
+  log(`上传任务已经完成，返回文件地址：${completeUploadRes.Location}`, 'keep')
 
   const seconds = (Date.now() - startTime) / 1000
-  const timeStr = seconds > 60 ? `${(seconds / 60).toFixed(2)}分钟 ${seconds % 60} 秒` : `${seconds.toFixed(2)}秒`
-  log(`任务分析：总耗时 ${timeStr}, 平均速度 ${(size / seconds / 1024 / 1024).toFixed(2)} Mb/s`)
+  const timeStr = seconds > 60 ? `${(Math.floor(seconds / 60))}分钟 ${Math.round(seconds % 60)} 秒` : `${seconds.toFixed(0)}秒`
+  log(`任务分析：[${name}] 文件大小 ${(size / 1024 / 1024).toFixed(2)}MB, 并行上传数量 ${parallelCount.value}, 分片大小${chunkMbSize.value} MB, 总耗时 ${timeStr}, 平均速度 ${(size / seconds / 1024 / 1024).toFixed(2)} MB/s`, 'keep')
   message.success('上传成功')
 }
 
