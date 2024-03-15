@@ -31,8 +31,8 @@ import dayjs from "dayjs"
 const message = useMessage()
 const fileRef = ref<HTMLInputElement | null>(null)
 
-const chunkMbSize = ref(5)
-const parallelCount = ref(1)
+const chunkMbSize = ref(15)
+const parallelCount = ref(2)
 const logList = ref<{ content: string, type?: string }[]>([])
 const log = (text: string, type?: string) => {
   const content = `[${dayjs().format('YYYY-MM-DD HH:mm:ss')}]: ${text}`
